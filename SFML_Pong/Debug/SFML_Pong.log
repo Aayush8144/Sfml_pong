@@ -1,0 +1,27 @@
+﻿  Ball.cpp
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\Ball.cpp(16,62): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\Ball.cpp(16,38): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  Bar.cpp
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\Bar.cpp(13,69): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\Bar.cpp(13,29): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\Bar.cpp(15,74): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\Bar.cpp(15,32): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
+  SFML_Pong.vcxproj -> F:\Projects\c_plus_plus\SFML_Pong\Debug\SFML_Pong.exe
