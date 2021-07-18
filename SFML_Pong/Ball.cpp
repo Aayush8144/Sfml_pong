@@ -24,32 +24,6 @@ Ball::~Ball()
 {
 }
 
-bool Ball::IsOutOfBoundsTopOrBottom(const sf::RenderWindow& window)
-{
-	if (body.getPosition().y < body.getSize().y / 2 ||
-		body.getPosition().y >(window.getSize().y - (body.getSize().y / 2)))
-		return true;
-
-	return false;
-}
-
-bool Ball::IsOutOfBoundsLeftOrRight(const sf::RenderWindow& window)
-{
-	if (body.getPosition().x < body.getSize().x / 2 ||
-		body.getPosition().x >(window.getSize().x - body.getSize().x / 2))
-		return true;
-
-	return false;
-}
-
-bool Ball::IsCollidingWithBar(const sf::RectangleShape& barBody)
-{
-	if (body.getGlobalBounds().intersects(barBody.getGlobalBounds()))
-		return true;
-	
-	return false;
-}
-
 void Ball::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);

@@ -3,6 +3,7 @@
 
 #include "Bar.h"
 #include "Ball.h"
+#include "Collider.h"
 
 
 // global variables
@@ -117,48 +118,49 @@ int main()
 		ball.Move();
 
 		////// colider
-		//// todo: move to a collider class
 		//// checking if the pong bar is out of bounds
-		// left bat
-		if (pongBarLeft.IsOutOfBounds(window)) 
+		// left bar
+
+
+		if (pongBarLeft.GetCollider().IsOutOfBoundsTopOrBottom(window))
 		{ 
 			// checking if it is out of bounds in the top or below and adjusting respectively
 			if(pongBarLeft.GetPosition().y < WINDOW_WIDTH / 2)
-				pongBarLeft.SetPositon(12.5 / 100 * WINDOW_WIDTH, pongBarLeft.GetSize().x/2);
+				pongBarLeft.SetPositon(12.5 / 100 * WINDOW_WIDTH, pongBarLeft.GetSize().y/2);
 			else
-				pongBarLeft.SetPositon(12.5 / 100 * WINDOW_WIDTH, WINDOW_HEIGHT - pongBarLeft.GetSize().x / 2);
+				pongBarLeft.SetPositon(12.5 / 100 * WINDOW_WIDTH, WINDOW_HEIGHT - pongBarLeft.GetSize().y / 2);
 		}
 		// right bar
-		if (pongBarRight.IsOutOfBounds(window))
+		if (pongBarRight.GetCollider().IsOutOfBoundsTopOrBottom(window))
 		{
 			// checking if it is out of bounds in the top or below and adjusting respectively
 			if (pongBarRight.GetPosition().y < WINDOW_WIDTH / 2)
-				pongBarRight.SetPositon(87.5 / 100 * WINDOW_WIDTH, pongBarRight.GetSize().x / 2);
+				pongBarRight.SetPositon(87.5 / 100 * WINDOW_WIDTH, pongBarRight.GetSize().y / 2);
 			else
-				pongBarRight.SetPositon(87.5 / 100 * WINDOW_WIDTH, WINDOW_HEIGHT - pongBarRight.GetSize().x / 2);
+				pongBarRight.SetPositon(87.5 / 100 * WINDOW_WIDTH, WINDOW_HEIGHT - pongBarRight.GetSize().y / 2);
 		}
 
 		// ball collider
 		// checking top or bottom
-		if (ball.IsOutOfBoundsTopOrBottom(window))
+		if (ball.GetCollider().IsOutOfBoundsTopOrBottom(window))
 		{
 			ball.FlipYVelocity();
 		}
 		// checking for left or right
 		// @todo: reset the game, gameOver
-		if (ball.IsOutOfBoundsLeftOrRight(window))
+		if (ball.GetCollider().IsOutOfBoundsLeftOrRight(window))
 		{
 			ball.FlipXVelocity();
 		}
 		
 		////  checking collider  for ball with bar
 		// pongBarLeft
-		if (ball.IsCollidingWithBar(pongBarLeft.GetBody()))
+		if (ball.GetCollider().IsCollidingWithBar(pongBarLeft.GetBody()))
 		{
 			ball.FlipXVelocity();
 		}
 		// pongBarRight
-		if (ball.IsCollidingWithBar(pongBarRight.GetBody()))
+		if (ball.GetCollider().IsCollidingWithBar(pongBarRight.GetBody()))
 		{
 			ball.FlipXVelocity();
 		}

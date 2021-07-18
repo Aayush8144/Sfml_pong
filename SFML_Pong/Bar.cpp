@@ -3,7 +3,7 @@
 Bar::Bar(const sf::Texture* texture, const sf::RenderWindow &window, bool leftSide)
 {
 	// setting bar size
-	body.setSize(sf::Vector2f(150, 15)); 
+	body.setSize(sf::Vector2f(15, 150)); 
 	
 	// setting origin at the center
 	body.setOrigin(body.getSize().x/2, body.getSize().y/2);
@@ -18,7 +18,7 @@ Bar::Bar(const sf::Texture* texture, const sf::RenderWindow &window, bool leftSi
 	body.setTexture(texture); 
 
 	// rotating the bar so that it is vertical
-	body.setRotation(90.f); 
+	// body.setRotation(90.f); 
 
 	// setting yVelocity
 	yVelocity = 0;
@@ -57,18 +57,6 @@ void Bar::Update(bool upKeyState, bool downKeyState)
 
 	// moving the body in y-axis
 	body.move(0,this->yVelocity);
-}
-
-bool Bar::IsOutOfBounds(const sf::RenderWindow& window)
-{
-	// checking if the bar is in palyable zone
-	// x value of get size is used because the body is rotated 90 degree
-	// body is rotated because a certain someone made a horizontal texture
-	// todo: see if the texture can be rotated and then generated the body of size 15,150
-	if (body.getPosition().y > body.getSize().x/2 &&
-		body.getPosition().y < (window.getSize().y - body.getSize().x / 2))
-		return false;
-	return true;
 }
 
 void Bar::Draw(sf::RenderWindow& window)

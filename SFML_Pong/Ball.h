@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "Bar.h"
+#include "Collider.h"
 
 #pragma once
 class Ball
@@ -34,26 +35,11 @@ public:
 	// positon getter funcitons
 	const sf::Vector2f GetPosition() { return body.getPosition(); }
 
+	// getter funciton returns collider object of the body
+	Collider GetCollider() { return Collider(body); }
+
 	// Move function moves the ball
 	void Move() { body.move(xVelocity, yVelocity); }
-
-	/* IsOutOfBoundsTopOrBottom checks if the ball is colliding with the top or bottom of the screen or not
-	 * @param const window : reference of the window to get its size
-	 * @return  bool values true if colliding, else false
-	*/ 
-	bool IsOutOfBoundsTopOrBottom(const sf::RenderWindow& window);
-
-	/* IsOutOfBoundsLeftOrRight checks if the ball is colliding with the top or bottom of the screen or not
-	 * @param const window : reference of the window to get its size
-	 * @return  bool values true if colliding, else false
-	*/
-	bool IsOutOfBoundsLeftOrRight(const sf::RenderWindow& window);
-
-	/* IsCollidingWithBar checks if the ball is colliding with bar
-	 * @param const sf::RectangleShape& barBodyy : reference of the body of the bar to get its position
-	 * @return  bool values true if colliding, else false
-	 */
-	bool IsCollidingWithBar(const sf::RectangleShape &barBody);
 
 	// Draw function draws the body to screen
 	void Draw(sf::RenderWindow& window);

@@ -1,6 +1,8 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
 
+#include "Collider.h"
+
 #pragma once
 class Bar
 {
@@ -40,9 +42,8 @@ public:
 	*/
 	const sf::RectangleShape GetBody() { return body; }
 
-	// IsOutOfBounds checks if the bar is in the screen or not
-	// @param const window : reference of the window to get its size
-	bool IsOutOfBounds(const sf::RenderWindow& window);
+	// getter funciton returns collider object of the body
+	Collider GetCollider() { return Collider(body); }
 
 	// Draw function draws the body to screen
 	void Draw(sf::RenderWindow &window);
