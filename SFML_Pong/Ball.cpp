@@ -1,5 +1,4 @@
 #include "Ball.h"
-#include <utility>
 
 Ball::Ball(const sf::Texture* texture, const sf::RenderWindow &window, float xVelocity, float yVelocity)
 {
@@ -28,4 +27,21 @@ void Ball::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
 
+}
+
+void Ball::CheckCollisionWithScreen(const sf::RenderWindow& window)
+{
+	// checking top or bottom of the screen
+	if (GetCollider().IsOutOfBoundsTopOrBottom(window))
+		FlipYVelocity();
+	// checking for left or right of the screen
+	// todo end game
+	if (GetCollider().IsOutOfBoundsLeftOrRight(window))
+		FlipXVelocity();
+}
+
+void Ball::CheckCollisionWithBar(const sf::RenderWindow& window, const sf::RectangleShape& barBody)
+{
+	if (GetCollider().IsCollidingWithBar(barBody))
+		FlipXVelocity();
 }

@@ -63,3 +63,15 @@ void Bar::Draw(sf::RenderWindow& window)
 {
 	window.draw(body);
 }
+
+void Bar::CheckCollisionWithScreen(const sf::RenderWindow& window)
+{
+	if (GetCollider().IsOutOfBoundsTopOrBottom(window))
+	{
+		// checking if it is out of bounds in the top or below and adjusting respectively
+		if (GetPosition().y < window.getSize().y / 2)
+			SetPositon(GetPosition().x, GetSize().y / 2);
+		else
+			SetPositon(GetPosition().x, window.getSize().y - GetSize().y / 2);
+	}
+}

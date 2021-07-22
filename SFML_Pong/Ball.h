@@ -43,6 +43,22 @@ public:
 
 	// Draw function draws the body to screen
 	void Draw(sf::RenderWindow& window);
+
+	/* CheckCollisionWithScreen checks if the ball is colliding with screen: 
+			top, left, bottom, and right
+	* @param const window : reference of the window to get its size
+	* @todo: reset the game, gameOver when ball hits the left or right screen
+	*/
+	void CheckCollisionWithScreen(const sf::RenderWindow& window);
+
+	/* CheckCollisionWithScreen checks if the ball is colliding with screen:
+			top, left, bottom, and right
+	* @param const window : reference of the window to get its size
+	* @todo: reset the game, gameOver when ball hits the left or right screen
+	*/
+	void CheckCollisionWithBar(const sf::RenderWindow& window, const sf::RectangleShape& barBody);
+
+
 private:
 	sf::RectangleShape body;
 	float xVelocity;

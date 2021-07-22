@@ -16,6 +16,9 @@ public:
 	// positon getter funcitons
 	const sf::Vector2f GetPosition() { return body.getPosition(); }
 
+	// position setter funciton 
+	void SetPositon(float xPosition, float yPosition) { body.setPosition(xPosition, yPosition); }
+
 	// checking body collison
 
 	/* IsOutOfBoundsTopOrBottom checks if the ball is colliding with the top 
@@ -30,16 +33,18 @@ public:
 	 * @param const window : reference of the window to get its size
 	 * @return  bool values true if colliding, else false
 	*/
-	bool IsOutOfBoundsLeftOrRight(const sf::RenderWindow& window);
+	const bool IsOutOfBoundsLeftOrRight(const sf::RenderWindow& window);
 
 	/* IsCollidingWithBar checks if the ball is colliding with bar
 	* @param const sf::RectangleShape& barBodyy : reference of the body of the bar to get its position
 	* @return  bool values true if colliding, else false
 	*/
-	bool IsCollidingWithBar(const sf::RectangleShape& barBody);
+	const bool IsCollidingWithBar(const sf::RectangleShape& barBody);
+
+
 
 private:
-	sf::RectangleShape body;
+	sf::RectangleShape& body;
 
 };
 

@@ -1,5 +1,6 @@
-#include "SFML/Graphics.hpp"
-#include <iostream>
+#include "SFML/Graphics.hpp" // for sfml graphics
+#include <iostream>	// for cout,cin
+#include <sstream>	// for concoting text 
 
 #include "Bar.h"
 #include "Ball.h"
@@ -10,6 +11,9 @@
 const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 600;
 const unsigned int FRAME_RATE = 60;
+
+
+// make a base class for bar and ball to poly morphorize
 
 int main()
 {
@@ -34,9 +38,36 @@ int main()
 	bool upKeyPressed = false;
 	bool downKeyPressed = false;
 
-	// variables
-	bool play = true;
-	float xVelocity = 0, yVelocity = 0;
+	//// variables
+	bool play = true; // for game loop 
+	float xVelocity = 0, yVelocity = 0; // ball velocity 
+	int leftBarScore = 0, rightBarScore = 0; // score counter
+	bool gameOver = true;	// start the game
+
+	// fonts 
+	sf::Font font;
+	
+	// loading font form file
+	if (!font.loadFromFile("F:/Projects/c_plus_plus/SFML_Pong/data/BRUSHSCI.ttf"))
+	{
+		std::cout << "Error while loading font." << std::endl;
+		return -1;
+	}
+
+	/////// scoreboard
+	sf::Text score;
+	// setting the font of the score
+	score.setFont(font);
+	// setting the size of the score board to 30.f
+	score.setCharacterSize(30.f);
+	// setting origin to the center of the object
+	score.setOrigin(score.getCharacterSize() / 2, score.getCharacterSize() / 2);
+	// setting position of the score board to the middle of the screen in x-axis and top of the screen inm y-axis
+	score.setPosition(WINDOW_WIDTH / 2, score.getCharacterSize() / 2);
+	// setting the color to white
+	score.setFillColor(sf::Color::White);
+	// setting the score
+	score.setString("0 : 0");
 
 	// textures
 	sf::Texture ballTexture;
@@ -44,14 +75,14 @@ int main()
 
 	//// loading texture from file
 	// loading ball texture
-	if (!ballTexture.loadFromFile("F:/Projects/c_plus_plus/SFML_Pong/data/ball.png"))
+	if (!ballTexture.loadFromFile("F:/Projects/c_plus_plus/SFML_Pong/data/images_textures/ball.png"))
 	{
 		std::cout << "Error while loading Ball Texture." << std::endl;
 		return -1;
 	}
 	
 	// loading pong bar texture
-	if (!pongBarTexture.loadFromFile("F:/Projects/c_plus_plus/SFML_Pong/data/pongBar.png"))
+	if (!pongBarTexture.loadFromFile("F:/Projects/c_plus_plus/SFML_Pong/data/images_textures/pongBar.png"))
 	{
 		std::cout << "Error while loading Pong Bar Texture" << std::endl;
 		return -1;
@@ -91,6 +122,9 @@ int main()
 					// checking if up and down is  pressed
 					if (events.key.code == sf::Keyboard::Up) upKeyPressed = true;
 					if (events.key.code == sf::Keyboard::Down) downKeyPressed = true;
+					// checking if space bar is pressed 
+					// if yes then starting the game
+					if (events.key.code == sf::Keyboard::Space) gameOver = false;
 					break;
 				}
 
@@ -109,69 +143,82 @@ int main()
 		} // events ends
 		
 		//// logic
-
-		// movement for the bar
-		pongBarRight.Update(upKeyPressed, downKeyPressed);
-		pongBarLeft.Update(wKeyPressed, sKeyPressed);
-		
-		// movement for ball
-		ball.Move();
-
-		////// colider
-		//// checking if the pong bar is out of bounds
-		// left bar
-
-
-		if (pongBarLeft.GetCollider().IsOutOfBoundsTopOrBottom(window))
-		{ 
-			// checking if it is out of bounds in the top or below and adjusting respectively
-			if(pongBarLeft.GetPosition().y < WINDOW_WIDTH / 2)
-				pongBarLeft.SetPositon(12.5 / 100 * WINDOW_WIDTH, pongBarLeft.GetSize().y/2);
-			else
-				pongBarLeft.SetPositon(12.5 / 100 * WINDOW_WIDTH, WINDOW_HEIGHT - pongBarLeft.GetSize().y / 2);
-		}
-		// right bar
-		if (pongBarRight.GetCollider().IsOutOfBoundsTopOrBottom(window))
-		{
-			// checking if it is out of bounds in the top or below and adjusting respectively
-			if (pongBarRight.GetPosition().y < WINDOW_WIDTH / 2)
-				pongBarRight.SetPositon(87.5 / 100 * WINDOW_WIDTH, pongBarRight.GetSize().y / 2);
-			else
-				pongBarRight.SetPositon(87.5 / 100 * WINDOW_WIDTH, WINDOW_HEIGHT - pongBarRight.GetSize().y / 2);
-		}
-
-		// ball collider
-		// checking top or bottom
-		if (ball.GetCollider().IsOutOfBoundsTopOrBottom(window))
-		{
-			ball.FlipYVelocity();
-		}
-		// checking for left or right
-		// @todo: reset the game, gameOver
 		if (ball.GetCollider().IsOutOfBoundsLeftOrRight(window))
 		{
-			ball.FlipXVelocity();
-		}
-		
-		////  checking collider  for ball with bar
-		// pongBarLeft
-		if (ball.GetCollider().IsCollidingWithBar(pongBarLeft.GetBody()))
-		{
-			ball.FlipXVelocity();
-		}
-		// pongBarRight
-		if (ball.GetCollider().IsCollidingWithBar(pongBarRight.GetBody()))
-		{
-			ball.FlipXVelocity();
+			gameOver = true;
+			
+			// increasing the score
+			if (ball.GetPosition().x > WINDOW_WIDTH/2)
+			{
+				rightBarScore++;
+			}
+			else
+			{
+				leftBarScore++;
+			}
+
+			// pauseing for a bit
+			// look into the udemy video
+			for (int i = 0; i <= 100000; ++i);
+
+			//// resetting everything
+			// resetting the ball
+			ball.SetPositon(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+			
+			// resetting the bars
+			pongBarLeft.SetPositon(pongBarLeft.GetPosition().x, WINDOW_HEIGHT / 2);
+			pongBarRight.SetPositon(pongBarRight.GetPosition().x, WINDOW_HEIGHT / 2);
+
 		}
 
-		// rendering
+		if (!gameOver)
+		{
+
+			// movement for the bar
+			pongBarRight.Update(upKeyPressed, downKeyPressed);
+			pongBarLeft.Update(wKeyPressed, sKeyPressed);
+		
+			// movement for ball
+			ball.Move();
+
+			//@todo: make a update collider classfor bars and balls
+
+			////// colider
+			//// checking if the pong bar is out of bounds
+			// left bar
+			pongBarLeft.CheckCollisionWithScreen(window);
+
+			// right bar
+			pongBarRight.CheckCollisionWithScreen(window);
+
+			///// ball collider
+			// checking collider with the screen
+			ball.CheckCollisionWithScreen(window);
+
+			////  checking collider  for ball with bar
+			// pongBarLeft
+			ball.CheckCollisionWithBar(window, pongBarLeft.GetBody());
+
+			// pongBarRight
+			ball.CheckCollisionWithBar(window, pongBarRight.GetBody());
+
+		}
+
+		//////// rendering
 		window.clear(); // clearing the screen
 
+		window.draw(score);
+
+		// ball
 		ball.Draw(window);
 		//bars
 		pongBarLeft.Draw(window);
 		pongBarRight.Draw(window);
+
+		// scores
+		std::stringstream text;
+		text << leftBarScore << " : " << rightBarScore;
+		score.setString(text.str());
 		
 		window.display(); // displaying the screen
 	} // play loop ends

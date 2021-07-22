@@ -48,6 +48,13 @@ public:
 	// Draw function draws the body to screen
 	void Draw(sf::RenderWindow &window);
 
+	/* CheckCollisionWithScreen checks if the ball is colliding with scren: top and bottom
+	* @param const window : reference of the window to get its size
+	*/
+	void CheckCollisionWithScreen(const sf::RenderWindow& window);
+
+
+
 private:
 	sf::RectangleShape body;
 	float yVelocity;

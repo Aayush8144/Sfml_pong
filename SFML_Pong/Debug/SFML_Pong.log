@@ -1,2 +1,6 @@
 ﻿  main.cpp
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\main.cpp(62,25): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\main.cpp(64,73): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\main.cpp(64,43): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+F:\Projects\c_plus_plus\SFML_Pong\SFML_Pong\main.cpp(66,63): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   SFML_Pong.vcxproj -> F:\Projects\c_plus_plus\SFML_Pong\Debug\SFML_Pong.exe
